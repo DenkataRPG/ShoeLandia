@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ShoeLandia.Data;
 using ShoeLandia.Data.Models;
+using ShoeLandia.Services;
+using ShoeLandia.Services.Interfaces;
 
 namespace ShoeLandia
 {
@@ -20,6 +22,8 @@ namespace ShoeLandia
             builder.Services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IItemService, ItemService>();
 
             var app = builder.Build();
 

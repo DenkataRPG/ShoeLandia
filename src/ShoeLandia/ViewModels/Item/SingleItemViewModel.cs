@@ -1,28 +1,20 @@
-﻿namespace ShoeLandia.Data.Models
+﻿using ShoeLandia.Data.Models;
+
+namespace ShoeLandia.ViewModels.Item
 {
-    public class Item
-
+    public class SingleItemViewModel
     {
-        public Item()
-        {
-            this.Id = Guid.NewGuid().ToString();
-            this.Images = new HashSet<Image>();
-            this.Colors = new HashSet<string>();
-        }
-
         public string Id { get; set; }
-        public bool IsDeleted { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
         public string Size { get; set; }
         public ICollection<string> Colors { get; set; }
-        public virtual Category Category { get; set; }
+        public string CategoryName { get; set; }
         public int CategoryId { get; set; }
         public string Type { get; set; }
         public virtual Cart Cart { get; set; }
-        public string? CartId { get; set; }
+        public string CartId { get; set; }
         public virtual ICollection<Image> Images { get; set; }
-
     }
 }

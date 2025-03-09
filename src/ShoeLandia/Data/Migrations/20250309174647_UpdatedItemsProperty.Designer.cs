@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoeLandia.Data;
 
@@ -11,9 +12,11 @@ using ShoeLandia.Data;
 namespace ShoeLandia.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250309174647_UpdatedItemsProperty")]
+    partial class UpdatedItemsProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -305,6 +308,7 @@ namespace ShoeLandia.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CartId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CategoryId")
@@ -419,7 +423,9 @@ namespace ShoeLandia.Data.Migrations
                 {
                     b.HasOne("ShoeLandia.Data.Models.Cart", "Cart")
                         .WithMany("Items")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ShoeLandia.Data.Models.Category", "Category")
                         .WithMany("Items")
