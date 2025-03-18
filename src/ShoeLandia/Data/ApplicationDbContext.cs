@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ShoeLandia.Data.Models;
 
@@ -18,13 +19,10 @@ namespace ShoeLandia.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Needed for Identity models configuration
+            Assembly configAssembly = Assembly.GetAssembly(typeof(ApplicationDbContext)) ??
+                                      Assembly.GetExecutingAssembly();
+            builder.ApplyConfigurationsFromAssembly(configAssembly);
             base.OnModelCreating(builder);
-
-            this.ConfigureUserIdentityRelations(builder);
-
-
-            var entityTypes = builder.Model.GetEntityTypes().ToList();
         }
 
         // Applies configurations
