@@ -28,5 +28,14 @@ namespace ShoeLandia.Services
         {
             return dbContext.Categories.ToList();
         }
+        public async Task<IEnumerable<string>> AllCategoryNamesAsync()
+        {
+            IEnumerable<string> allNames = await dbContext
+                .Categories
+                .Select(c => c.Name)
+                .ToArrayAsync();
+
+            return allNames;
+        }
     }
 }

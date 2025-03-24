@@ -8,7 +8,7 @@ using ShoeLandia.Data;
 
 #nullable disable
 
-namespace ShoeLandia.Data.Migrations
+namespace ShoeLandia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -311,35 +311,6 @@ namespace ShoeLandia.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ShoeLandia.Data.Models.Image", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AddedByUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ItemId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RemoteImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddedByUserId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("Images");
-                });
-
             modelBuilder.Entity("ShoeLandia.Data.Models.Item", b =>
                 {
                     b.Property<string>("Id")
@@ -356,6 +327,10 @@ namespace ShoeLandia.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Images")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -449,25 +424,6 @@ namespace ShoeLandia.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ShoeLandia.Data.Models.Image", b =>
-                {
-                    b.HasOne("ShoeLandia.Data.Models.ApplicationUser", "AddedByUser")
-                        .WithMany()
-                        .HasForeignKey("AddedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ShoeLandia.Data.Models.Item", "Item")
-                        .WithMany("Images")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AddedByUser");
-
-                    b.Navigation("Item");
-                });
-
             modelBuilder.Entity("ShoeLandia.Data.Models.Item", b =>
                 {
                     b.HasOne("ShoeLandia.Data.Models.Cart", "Cart")
@@ -502,11 +458,6 @@ namespace ShoeLandia.Data.Migrations
             modelBuilder.Entity("ShoeLandia.Data.Models.Category", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("ShoeLandia.Data.Models.Item", b =>
-                {
-                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

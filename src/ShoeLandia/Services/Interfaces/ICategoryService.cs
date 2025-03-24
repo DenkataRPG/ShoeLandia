@@ -6,5 +6,6 @@ namespace ShoeLandia.Services.Interfaces
     {
         public IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs();
         public IEnumerable<Category> GetAllCategories();
+        public Task<IEnumerable<string>> AllCategoryNamesAsync();
     }
 }

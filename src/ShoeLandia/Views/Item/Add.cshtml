@@ -2,13 +2,13 @@
 
 @{
     ViewData["Title"] = "Add new Item";
-    var categoryItems = this.Model.CategoriesItems.Select(x => new SelectListItem(x.Key, x.Value));
+    var categoryItems = this.Model.CategoriesItems.Select(x => new SelectListItem(x.Value, x.Key));
 }
 
 <div class="container text-center">
     <h1>Add new item</h1>
 </div>
-<form method="get">
+<form method="post">
     <div class="mb-3">
         <label asp-for="Name" class="form-label">Name</label>
         <input asp-for="Name" class="form-control">
