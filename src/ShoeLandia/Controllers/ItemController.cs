@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShoeLandia.Data.Models;
+using ShoeLandia.Services.Filter;
 using ShoeLandia.Services.Interfaces;
 using ShoeLandia.ViewModels.Item;
 
@@ -7,31 +9,64 @@ namespace ShoeLandia.Controllers
     public class ItemController : Controller
     {
         private readonly IItemService itemService;
-        private readonly ICategoryService categoriesService;
+        private readonly ICategoryService categoryService;
 
-        public ItemController(IItemService itemService, ICategoryService categoriesService)
+        public ItemController(IItemService itemService, ICategoryService categoryService)
         {
             this.itemService = itemService;
-            this.categoriesService = categoriesService;
+            this.categoryService = categoryService;
         }
-        public IActionResult All()
+        public async Task<IActionResult> All([FromQuery] AllItemsQueryModel queryModel)
         {
-            IEnumerable<SingleItemViewModel> items = this.itemService.All();
+            AllItemsFilteredAndPagedServiceModel serviceModel =
+                await itemService.All(queryModel);
 
-            return View(items);
+            queryModel.Items = serviceModel.Items;
+            queryModel.TotalItems = serviceModel.TotalItemsCount;
+            queryModel.Categories = await categoryService.AllCategoryNamesAsync();
+
+            return View(queryModel);
         }
+
 
         [HttpGet]
         public IActionResult Add()
         {
 
-            var categories = this.categoriesService.GetAllAsKeyValuePairs().ToList();
+            var categories = this.categoryService.GetAllAsKeyValuePairs().ToList();
 
             ItemFormViewModel viewModel = new ItemFormViewModel
             {
-                CategoriesItems = categories
+                CategoriesItems = categories,
             };
-            return View();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Add(ItemFormViewModel item)
+        {
+            itemService.AddNewItemInDB(item);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            var item = this.itemService.GetById<Item>(id);
+            SingleItemViewModel model = new SingleItemViewModel
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Description = item.Description,
+                Price = item.Price,
+                Size = item.Size,
+                Colors = item.Colors,
+                CategoryName = item.Category.Name,
+                CategoryId = item.Category.Id,
+                Type = item.Type,
+                Images = item.GetImages
+            };
+            return View(model);
         }
     }
 }

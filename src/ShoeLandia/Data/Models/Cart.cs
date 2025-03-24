@@ -11,7 +11,7 @@ namespace ShoeLandia.Data.Models
         public Cart()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Items = new HashSet<Item>();
+            this.Items = new List<Item>();
         }
 
         

@@ -10,7 +10,7 @@ namespace ShoeLandia.Data.Models
     {
         public Category()
         {
-            this.Items = new HashSet<Item>();
+            this.Items = new List<Item>();
         }
 
         public int Id  { get; set; }
