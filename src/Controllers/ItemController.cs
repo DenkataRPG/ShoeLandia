@@ -34,7 +34,7 @@ namespace ShoeLandia.Controllers
             return View(queryModel);
         }
 
-       
+        [Authorize]
         [HttpGet]
         public IActionResult Add()
         {
@@ -56,6 +56,26 @@ namespace ShoeLandia.Controllers
 
             this.itemService.AddNewItemInDB(item, userId);
             return RedirectToAction("All", "Item");
+        }
+
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            var item = this.itemService.GetById<Item>(id);
+            SingleItemViewModel model = new SingleItemViewModel
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Description = item.Description,
+                Price = item.Price,
+                Size = item.Size,
+                Colors = item.Colors,
+                CategoryName = item.Category.Name,
+                CategoryId = item.Category.Id,
+                Type = item.Type,
+                Images = item.GetImages
+            };
+            return View(model);
         }
         [Authorize]
         [HttpGet]

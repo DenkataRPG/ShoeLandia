@@ -1,4 +1,6 @@
-﻿@model ShoeLandia.ViewModels.Item.ItemFormViewModel
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ShoeLandia.ViewModels.Item.ItemFormViewModel
 
 @{
     ViewData["Title"] = "Edit Item";
@@ -9,6 +11,7 @@
     <h1>Add new item</h1>
 </div>
 <form method="post">
+    <input type="hidden" name="OwnerId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
     <div class="mb-3">
         <label asp-for="Name" class="form-label">Name</label>
         <input asp-for="Name" class="form-control">
