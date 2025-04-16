@@ -18,32 +18,43 @@ namespace ShoeLandia.Services
         }
         public async Task<AllItemsFilteredAndPagedServiceModel> All(AllItemsQueryModel queryModel)
         {
-            // var items1 = this.dbContext
-            // .Items
-            // .Where(item => item.IsDeleted == false).Include(x=>x.Category).ToList();
-            // return items1;
             IQueryable<Item> itemsQuery = dbContext
-               .Items
-               .AsQueryable();
+                .Items
+                .Where(item => item.IsDeleted == false)
+                .AsQueryable();
 
+            // Apply search filter if provided
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string searchTerm = queryModel.SearchString.ToLower();
+                itemsQuery = itemsQuery
+                    .Where(i => i.Name.ToLower().Contains(searchTerm) ||
+                                i.Description.ToLower().Contains(searchTerm));
+            }
 
+            // Apply category filter if provided
+            if (!string.IsNullOrWhiteSpace(queryModel.Category))
+            {
+                itemsQuery = itemsQuery
+                    .Where(i => i.Category.Name == queryModel.Category);
+            }
 
+            // Apply sorting
             itemsQuery = queryModel.ItemsSorting switch
             {
-                // ItemsSorting.Newest => housesQuery
-                //     .OrderByDescending(x => x.CreatedOn),
-                // ItemsSorting.Oldest => housesQuery
-                //     .OrderBy(x => x.CreatedOn),
                 ItemsSorting.PriceAscending => itemsQuery
                     .OrderBy(x => x.Price),
                 ItemsSorting.PriceDescending => itemsQuery
                     .OrderByDescending(x => x.Price),
-                _ => itemsQuery.OrderBy(x => x.Name)
-                // .ThenByDescending(x => x.CreatedOn)
+                _ => itemsQuery
+                    .OrderBy(x => x.Name)
             };
 
+            // Get total count before paging
+            int totalItems = await itemsQuery.CountAsync();
+
+            // Apply paging
             IEnumerable<ItemInListViewModel> allItems = await itemsQuery
-                .Where(x => x.IsDeleted == false)
                 .Skip((queryModel.CurrentPage - 1) * queryModel.ItemsPerPage)
                 .Take(queryModel.ItemsPerPage)
                 .Select(x => new ItemInListViewModel()
@@ -56,11 +67,8 @@ namespace ShoeLandia.Services
                     Colors = x.Colors,
                     Type = x.Type,
                     Category = x.Category.Name,
-
-
                 })
                 .ToArrayAsync();
-            int totalItems = itemsQuery.Count();
 
             return new AllItemsFilteredAndPagedServiceModel
             {

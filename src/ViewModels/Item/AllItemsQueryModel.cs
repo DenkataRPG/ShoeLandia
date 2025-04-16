@@ -6,32 +6,25 @@ namespace ShoeLandia.ViewModels.Item
 {
     public class AllItemsQueryModel
     {
-        public AllItemsQueryModel()
-        {
-            CurrentPage = DefaultPage;
-            ItemsPerPage = EntitiesPerPage;
-
-            Categories = new HashSet<string>();
-            Items = new HashSet<ItemInListViewModel>();
-        }
+        public const int ItemsPerPageDefault = 3;
 
         public string? Category { get; set; }
 
-        [Display(Name = "Search by word")]
+        [Display(Name = "Search by text")]
         public string? SearchString { get; set; }
 
-        [Display(Name = "Sort Items By")]
+        [Display(Name = "Sort by")]
         public ItemsSorting ItemsSorting { get; set; }
 
-        public int CurrentPage { get; set; }
+        [Display(Name = "Show")]
+        public int ItemsPerPage { get; set; } = ItemsPerPageDefault;
 
-        [Display(Name = "Show Items On Page")]
-        public int ItemsPerPage { get; set; }
+        public int CurrentPage { get; set; } = 1;
 
         public int TotalItems { get; set; }
 
-        public IEnumerable<string> Categories { get; set; }
+        public IEnumerable<string> Categories { get; set; } = new List<string>();
 
-        public IEnumerable<ItemInListViewModel> Items { get; set; }
+        public IEnumerable<ItemInListViewModel> Items { get; set; } = new List<ItemInListViewModel>();
     }
 }
