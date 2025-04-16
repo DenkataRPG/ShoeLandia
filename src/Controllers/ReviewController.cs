@@ -40,6 +40,7 @@ namespace ShoeLandia.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult Delete()
         {
