@@ -35,6 +35,7 @@ namespace ShoeLandia.Controllers
             var reviews = reviewService.All();
             return View(reviews);
         }
+
         [HttpGet]
         public IActionResult Edit()
         {
