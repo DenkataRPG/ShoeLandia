@@ -33,6 +33,13 @@
                 .WithOne(x => x.Owner)
                 .HasForeignKey(x => x.OwnerId)
                 .OnDelete(DeleteBehavior.Cascade);
+            appUser
+                .HasMany(x => x.Reviews)
+                .WithOne(x => x.Author)
+                .HasForeignKey(x => x.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
+
     }
 }

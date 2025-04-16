@@ -38,7 +38,7 @@ namespace ShoeLandia.Services
                     .OrderBy(x => x.Price),
                 ItemsSorting.PriceDescending => itemsQuery
                     .OrderByDescending(x => x.Price),
-                _ => itemsQuery
+                _ => itemsQuery.OrderBy(x => x.Name)
                 // .ThenByDescending(x => x.CreatedOn)
             };
 

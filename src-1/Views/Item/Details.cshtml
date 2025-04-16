@@ -1,0 +1,104 @@
+﻿@model ShoeLandia.ViewModels.Item.SingleItemViewModel
+@* 
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Name</h1>
+<li>@Model.Size</li>
+<li>@Model.Price</li>
+<li>@Model.Description</li>
+<li>@Model.Colors</li>
+<li>@Model.CategoryName</li> *@
+
+
+<div class="container product-container">
+    <!-- Заглавие и категория на продукта -->
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="product-title">@Model.Name</h1>
+            <span class="category-tag">@Model.CategoryName</span>
+        </div>
+        <div class="col-md-4 text-right">
+            <div class="price">
+                @Model.Price лв.
+                <span>@(Model.Price * 1.2) лв.</span> <!-- Пример за стара цена -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Карусел за снимките на продукта -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Images.Count(); i++)
+                    {
+                        var activeClass = i == 0 ? "active" : "";
+                        <div class="carousel-item @activeClass">
+                            <img src="@Model.Images[i]" class="d-block w-100" alt="Product Image">
+                        </div>
+                    }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Подробности за продукта -->
+        <div class="col-md-6">
+            <div class="product-details-container">
+                <div class="product-detail">
+                    <div class="detail-title"><i class="fas fa-shoe-prints"></i> Размер:</div>
+                    <div class="detail-content">@Model.Size</div>
+                </div>
+                <div class="product-detail">
+                    <div class="detail-title"><i class="fas fa-palette"></i> Цвят:</div>
+                    <div class="detail-content">@Model.Colors</div>
+                </div>
+                <div class="product-detail">
+                    <div class="detail-title"><i class="fas fa-info-circle"></i> Описание:</div>
+                    <div class="detail-content">@Model.Description</div>
+                </div>
+            </div>
+
+            <!-- Бутон за покупка -->
+            <button class="buy-btn mt-4"><i class="fas fa-cart-plus"></i> Купи сега</button>
+            <div class="mt-3">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    Delete
+                </button>
+                <a type="button" class="btn btn-warning" asp-controller="Item" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to delete this product"<strong>@Model.Name</strong>"?
+        </div>
+        <div class="modal-footer">
+            <form method="post" asp-controller="Item" asp-action="Delete" asp-route-id="@Model.Id">
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            </form>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+    </div>
+</div>

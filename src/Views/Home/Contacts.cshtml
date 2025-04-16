@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Contacts";
+}
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJd1P7W6lZ2fQ9Xfn3yWCd60MhnzMz6ckazd3tjqbA6Rf9hK38KqUtVqgh4p" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <h1>@ViewData["Title"]</h1>
+            <nav>
+                <ul class="nav justify-content-center">
+                    <li class="nav-item"><a class="nav-link text-white" href="/">Начало</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/Item/All">Продукти</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        <section class="contact-info">
+            <h2>Нашата контактна информация</h2>
+            <p>Ако имате въпроси относно нашите продукти или сътрудничество с производители, не се колебайте да се свържете с нас!</p>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Имейл за връзка:</strong>
+                        </div>
+                        <div class="card-body">
+                            <p><a href="mailto:support@obuvki.com">support@obuvki.com</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Телефон за връзка:</strong>
+                        </div>
+                        <div class="card-body">
+                            <p><a href="tel:+359123456789">+359 123 456 789</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Работа с производители:</strong>
+                        </div>
+                        <div class="card-body">
+                            <p>Ако сте производител на обувки и искате да работите с нас, моля изпратете запитване на имейл: <a href="mailto:partners@obuvki.com">partners@obuvki.com</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-5">Форма за контакт</h3>
+            <form action="/Contact/SendMessage" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Вашето име:</label>
+                    <input type="text" class="form-control" id="name" name="name" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Вашият имейл:</label>
+                    <input type="email" class="form-control" id="email" name="email" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="message" class="form-label">Вашето съобщение:</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Изпрати съобщение</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Обувки Онлайн. Всички права запазени.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0f9dZnJLR9f3BvKn2Fz1Z0ONfnxf5/X7dRiYp13URVs5l/R4" crossorigin="anonymous"></script>
+</body>
+</html>

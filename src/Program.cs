@@ -25,6 +25,7 @@ namespace ShoeLandia
 
             builder.Services.AddScoped<IItemService, ItemService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IReviewService, ReviewService>();
 
             var app = builder.Build();
 

@@ -367,6 +367,39 @@ namespace ShoeLandia.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("ShoeLandia.Data.Models.Review", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("ShoeLandia.Data.Models.ApplicationRole", null)
@@ -455,6 +488,17 @@ namespace ShoeLandia.Migrations
                     b.Navigation("Owner");
                 });
 
+            modelBuilder.Entity("ShoeLandia.Data.Models.Review", b =>
+                {
+                    b.HasOne("ShoeLandia.Data.Models.ApplicationUser", "Author")
+                        .WithMany("Reviews")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("ShoeLandia.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Claims");
@@ -462,6 +506,8 @@ namespace ShoeLandia.Migrations
                     b.Navigation("Items");
 
                     b.Navigation("Logins");
+
+                    b.Navigation("Reviews");
 
                     b.Navigation("Roles");
                 });

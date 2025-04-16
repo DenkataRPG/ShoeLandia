@@ -1,0 +1,116 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.product-container {
+    margin-top: 50px;
+}
+
+/* Стил за заглавията на продукта */
+.product-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff6f61;
+    margin-top: 10px;
+}
+
+    .price span {
+        font-size: 1.2rem;
+        color: #6c757d;
+        text-decoration: line-through;
+        margin-left: 10px;
+    }
+
+/* Стил за секциите с подробности */
+.product-details-container {
+    margin-top: 30px;
+}
+
+.product-detail {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.detail-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+.detail-content {
+    font-size: 1.1rem;
+    color: #555;
+    padding-left: 10px;
+    border-left: 4px solid #ff6f61;
+}
+
+/* Икони */
+.detail-title i {
+    margin-right: 10px;
+    color: #ff6f61;
+}
+
+/* Стил за бутона за покупка */
+.buy-btn {
+    background-color: #28a745;
+    color: white;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .buy-btn:hover {
+        background-color: #218838;
+        transition: background-color 0.3s;
+    }
+
+    .buy-btn i {
+        margin-right: 10px;
+    }
+
+/* Карусел */
+.carousel-item img {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    width: 100%;
+}
+
+/* Клас за категорията на продукта */
+.category-tag {
+    font-size: 1.2rem;
+    padding: 8px 15px;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+}

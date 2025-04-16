@@ -11,12 +11,14 @@ namespace ShoeLandia.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Items = new HashSet<Item>();
+            this.Reviews = new HashSet<Review>();
         }
 
 
         //Soft delete
         public bool IsDeleted { get; set; }
         public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
