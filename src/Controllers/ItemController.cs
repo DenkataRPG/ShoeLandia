@@ -34,7 +34,7 @@ namespace ShoeLandia.Controllers
             return View(queryModel);
         }
 
-        [Authorize]
+        [Authorize(Roles="Admin")]
         [HttpGet]
         public IActionResult Add()
         {
@@ -48,7 +48,7 @@ namespace ShoeLandia.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Add(ItemFormViewModel item)
         {
@@ -77,7 +77,7 @@ namespace ShoeLandia.Controllers
             };
             return View(model);
         }
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
@@ -88,7 +88,7 @@ namespace ShoeLandia.Controllers
 
             return View(model);
         }
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(string id, ItemFormViewModel model)
         {
@@ -99,7 +99,7 @@ namespace ShoeLandia.Controllers
 
             return RedirectToAction("Details", "Item", new{id});
         }
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
