@@ -6,18 +6,20 @@
 
     public class ApplicationRole : IdentityRole
     {
-        public ApplicationRole()
-            : this(null)
-        {
-        }
 
         public ApplicationRole(string name)
             : base(name)
         {
             this.Id = Guid.NewGuid().ToString();
+            this.IsDeleted = false;
         }
 
-        public string Id { get; set; }
+        public ApplicationRole()
+        {
+            this.Id = Guid.NewGuid().ToString();
+            this.IsDeleted = false;
+        }
+
         public bool IsDeleted { get; set; }
     }
 }

@@ -438,7 +438,7 @@ namespace ShoeLandia.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.HasOne("ShoeLandia.Data.Models.ApplicationUser", null)
-                        .WithMany("Roles")
+                        .WithMany("UserRoles")
                         .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("ShoeLandia.Data.Models.ApplicationRole", null)
@@ -450,7 +450,7 @@ namespace ShoeLandia.Migrations
                     b.HasOne("ShoeLandia.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -509,7 +509,7 @@ namespace ShoeLandia.Migrations
 
                     b.Navigation("Reviews");
 
-                    b.Navigation("Roles");
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("ShoeLandia.Data.Models.Cart", b =>

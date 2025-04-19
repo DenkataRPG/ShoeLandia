@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ShoeLandia.Data;
+using ShoeLandia.Data.Configurations;
 using ShoeLandia.Data.Models;
 using ShoeLandia.Services;
 using ShoeLandia.Services.Interfaces;
@@ -9,7 +10,7 @@ namespace ShoeLandia
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,12 @@ namespace ShoeLandia
             builder.Services.AddScoped<IReviewService, ReviewService>();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                await SeedAdminUser.CreateRoles(services);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

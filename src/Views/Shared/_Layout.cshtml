@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using ShoeLandia.Data.Models
+@inject SignInManager<ShoeLandia.Data.Models.ApplicationUser> SignInManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -44,9 +48,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Item" asp-action="All">Products</a>
                         </li>
-                        @if (User.Identity?.IsAuthenticated ?? false)
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {
-                                <li class="nav-item">
+                            <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Item" asp-action="Add">Add Item</a>
                                 </li>
 
