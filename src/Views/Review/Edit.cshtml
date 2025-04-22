@@ -1,0 +1,22 @@
+﻿@model ShoeLandia.ViewModels.Review.ReviewViewModel
+
+<div class="mt-5">
+    <h4>Оставете вашия отзив:</h4>
+    <form asp-action="Edit" method="post" class="mt-3">
+        <div class="mb-3">
+            <label asp-for="CustomerName" for="CustomerName" class="form-label">Име</label>
+            <input asp-for="CustomerName" type="text" class="form-control" name="CustomerName" required />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Rating" for="Rating" class="form-label">Оценка (1 до 5)</label>
+            <input asp-for="Rating" type="number" class="form-control" name="Rating" min="1" max="5" required />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Comment" for="Comment" class="form-label">Коментар</label>
+            <textarea asp-for="Comment" class="form-control" name="Comment" rows="3" required></textarea>
+        </div>
+        <input type="hidden" asp-for="AuthorId" value="@Model.AuthorId" />
+
+        <button type="submit" class="btn btn-primary">Изпрати</button>
+    </form>
+</div>

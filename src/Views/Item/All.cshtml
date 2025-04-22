@@ -1,0 +1,165 @@
+﻿@model ShoeLandia.ViewModels.Item.AllItemsQueryModel
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<div class="container py-5">
+    <h1 class="text-center mb-5">Our Collection</h1>
+    
+    <form method="get">
+        <div class="row mb-5 align-items-end">
+            <div class="form-group col-md-2">
+                <label for="ItemsPerPage" class="form-label">Products per page</label>
+                <select name="ItemsPerPage" id="ItemsPerPage" class="form-select shadow-sm">
+                    <option value="3" selected="@(Model.ItemsPerPage == 3)">3</option>
+                    <option value="6" selected="@(Model.ItemsPerPage == 6)">6</option>
+                    <option value="9" selected="@(Model.ItemsPerPage == 9)">9</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="ItemsSorting" class="form-label">Sort by</label>
+                <select name="ItemsSorting" id="ItemsSorting" class="form-select shadow-sm">
+                    <option value="0" selected="@(Model.ItemsSorting == ShoeLandia.Views.Item.Enums.ItemsSorting.Name)">Name</option>
+                    <option value="3" selected="@(Model.ItemsSorting == ShoeLandia.Views.Item.Enums.ItemsSorting.PriceAscending)">Price (ascending)</option>
+                    <option value="4" selected="@(Model.ItemsSorting == ShoeLandia.Views.Item.Enums.ItemsSorting.PriceDescending)">Price (descending)</option>
+                </select>
+            </div>
+            <div class="form-group col-md-5">
+                <label for="SearchString" class="form-label">Search</label>
+                <div class="input-group">
+                    <input name="SearchString" id="SearchString" class="form-control shadow-sm" placeholder="Search by name, brand, or style..." value="@Model.SearchString">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-search me-2"></i>Search
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var item in Model.Items)
+            {
+                <div class="col">
+                    <div class="card h-100 product-card shadow-sm border-0 position-relative">
+                        @if (true) 
+                        {
+                            <div class="discount-badge">20% OFF</div>
+                        }
+                        <div class="card-img-wrapper">
+                            <img src="@item.GetImages[0]" class="card-img-top" alt="@item.Name">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text category">@item.Category</p>
+                            <p class="price"><span class="current-price">@item.Price</span></p>
+                            <p class="colors">
+                                @foreach (var color in item.Colors.ToString().Split(','))
+                                {
+                                    <span class="color-dot" style="background-color: @color.Trim().ToLower();" title="@color.Trim()"></span>
+                                }
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="btn btn-outline-primary btn-sm add-to-cart">
+                                    <i class="bi bi-cart-plus me-2"></i>Add to cart
+                                </a>
+                                <a href="/Item/Details/@item.Id" class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-info-circle me-2"></i>Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+    
+  
+</div>
+
+<style>
+    
+    .product-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+    
+    .card-img-wrapper {
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background-color: #f8f9fa;
+    }
+    
+    .card-img-top {
+        object-fit: contain;
+        height: 180px;
+        width: auto;
+        max-width: 100%;
+        transition: transform 0.5s ease;
+    }
+    
+    .product-card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+    
+    .discount-badge {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        background-color: #dc3545;
+        color: white;
+        padding: 5px 15px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+        z-index: 2;
+    }
+    
+    .category {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .price {
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .current-price {
+        color: #212529;
+    }
+    
+    .color-dot {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin-right: 5px;
+        border: 1px solid #dee2e6;
+    }
+    
+    .card-footer {
+        padding-top: 0;
+    }
+    
+    .add-to-cart:hover {
+        background-color: #0d6efd;
+        color: white;
+    }
+    
+    media (max-width: 768px) {
+        .form-group {
+            margin-bottom: 1rem;
+        }
+    }
+</style>

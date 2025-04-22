@@ -1,0 +1,200 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="contact-hero">
+    <div class="container text-center py-5">
+        <h1 class="display-4 fw-bold">Contact Us</h1>
+        <p class="lead">We're here to help with any questions about our products</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row g-5">
+        <div class="col-lg-5">
+            <div class="contact-info-card">
+                <h2 class="mb-4">Get in Touch</h2>
+                <p class="mb-4">If you have questions about our products or manufacturer partnerships, don't hesitate to reach out!</p>
+
+                <div class="contact-method mb-4">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email Us</h3>
+                        <a href="mailto:support@shoelandia.com">support@shoelandia.com</a>
+                    </div>
+                </div>
+
+                <div class="contact-method mb-4">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Call Us</h3>
+                        <a href="tel:+359123456789">+359 123 456 789</a>
+                    </div>
+                </div>
+
+                <div class="contact-method">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Partner With Us</h3>
+                        <p>If you're a shoe manufacturer and want to work with us, please send an inquiry to: <a href="mailto:partners@shoelandia.com">partners@shoelandia.com</a></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="contact-form-card">
+                <h2 class="mb-4">Send Us a Message</h2>
+                <form action="/Contact/SendMessage" method="post">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                                <label for="name">Your Name</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
+                                <label for="email">Your Email</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject">
+                        <label for="subject">Subject</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <textarea class="form-control" id="message" name="message" placeholder="Your Message" style="height: 150px" required></textarea>
+                        <label for="message">Your Message</label>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2933.9534930553395!2d23.321104!3d42.697085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8682cb317bf5%3A0x5200a528052a7f0a!2sSerdika%20Center!5e0!3m2!1sen!2sbg!4v1682341753406!5m2!1sen!2sbg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .contact-hero {
+        background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .contact-info-card, .contact-form-card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        padding: 2rem;
+        height: 100%;
+    }
+
+    .contact-method {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .icon-wrapper {
+        width: 50px;
+        height: 50px;
+        background-color: #e9ecef;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+        .icon-wrapper i {
+            font-size: 1.5rem;
+            color: #0d6efd;
+        }
+
+    .contact-details h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-details a {
+        color: #0d6efd;
+        text-decoration: none;
+    }
+
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        background-color: #e9ecef;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0d6efd;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+        .social-icon:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+        transition: all 0.2s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+            transform: translateY(-2px);
+        }
+
+    .map-container {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+</style>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
